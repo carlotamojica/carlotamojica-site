@@ -1,0 +1,288 @@
+/* ================================
+   RESET
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ================================
+   TIPOGRAFÍA GLOBAL
+================================ */
+
+body {
+  font-family: 'Times', 'Times New Roman', serif;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #000;
+  background: #ffffff;
+
+  /* espacio real para galería + footer */
+  padding-bottom: 190px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  cursor: crosshair;
+}
+
+a {
+  color: #000;
+  text-decoration: underline;
+}
+
+a:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.site-header {
+  padding: 0.4rem;
+}
+
+.site-header h1 {
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ================================
+   CONTENIDO
+================================ */
+
+.site-content {
+  padding: 0.4rem;
+  width: 100%;
+}
+
+/* Grid tipo Cargo */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 0.4rem;
+}
+
+.home-text {
+  grid-column: span 5;
+}
+
+.home-text p {
+  margin: 0 0 0.9em 0;
+}
+
+.home-empty {
+  grid-column: span 7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-text,
+  .home-empty {
+    grid-column: span 1;
+  }
+}
+
+/* ================================
+   BLOQUE INFERIOR FIJO
+================================ */
+
+.site-bottom {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #ffffff;
+  z-index: 20;
+}
+
+/* ================================
+   GALERÍA INFERIOR
+================================ */
+
+.home-footer-gallery {
+  width: 100%;
+}
+
+.home-footer-track {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 0.4rem;
+  padding: 0.4rem;
+}
+
+@media (max-width: 768px) {
+  .home-footer-track {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Imágenes y vídeos pequeños */
+.home-footer-track img,
+.home-footer-track video {
+  width: 100%;
+  display: block;
+  filter: grayscale(100%);
+  cursor: pointer;
+}
+
+.home-footer-track img:hover,
+.home-footer-track video:hover {
+  filter: none;
+}
+
+/* Evitar controles de vídeo en miniaturas */
+.home-footer-track video {
+  pointer-events: auto;
+}
+
+/* ================================
+   FOOTER
+================================ */
+
+.site-footer {
+  padding: 0.4rem;
+  margin-top: 0.4rem;
+  font-size: 13px;
+}
+
+/* ================================
+   LIGHTBOX
+================================ */
+
+.custom-lightbox {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-lightbox[hidden] {
+  display: none;
+}
+
+/* Marco fijo del contenido */
+.custom-lightbox .media-wrapper {
+  width: 80vw;
+  height: 80vh;
+  max-width: 80vw;
+  max-height: 80vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Imagen y vídeo grandes */
+.custom-lightbox img,
+.custom-lightbox video {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ================================
+   LIGHTBOX — TÍTULO
+================================ */
+
+.lb-title {
+  position: fixed;
+  top: 0.4rem;
+  left: 0.4rem;
+  z-index: 10000;
+
+  font-family: 'Times', 'Times New Roman', serif;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+
+  color: #ffffff;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ================================
+   NAVEGACIÓN LIGHTBOX
+================================ */
+
+.lb-prev,
+.lb-next,
+.lb-close {
+  position: fixed;
+  font-family: inherit;
+  font-size: 13px;
+  color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lb-prev {
+  top: 50%;
+  left: 10vw;
+  transform: translateY(-50%);
+}
+
+.lb-next {
+  top: 50%;
+  right: 10vw;
+  transform: translateY(-50%);
+}
+
+.lb-close {
+  top: 0.4rem;
+  right: 0.4rem;
+}
+
+/* ================================
+   CURSORES
+================================ */
+
+/* Elementos clicables → manita */
+button,
+.gallery-item,
+.home-footer-track img,
+.home-footer-track video,
+.lb-prev,
+.lb-next,
+.lb-close {
+  cursor: pointer;
+}
+
+/* ================================
+   SEGURIDAD VISUAL
+================================ */
+
+/* Evitar selección */
+.custom-lightbox,
+.custom-lightbox * {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
