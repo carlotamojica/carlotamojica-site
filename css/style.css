@@ -238,3 +238,47 @@ button,
 .lb-close {
   cursor: pointer;
 }
+
+/* ================================
+   LIGHTBOX — RESPONSIVE MÓVIL
+================================ */
+
+@media (max-width: 768px) {
+
+  .custom-lightbox {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-lightbox img,
+  .custom-lightbox video {
+    max-width: 90vw;
+    max-height: 80vh;
+  }
+
+  /* Controles abajo, sin afectar al centro */
+  .lb-prev,
+  .lb-next {
+    top: auto;
+    bottom: 0.8rem;
+    transform: none;
+  }
+
+  .lb-prev {
+    left: 0.8rem;
+  }
+
+  .lb-next {
+    right: 0.8rem;
+  }
+
+  .lb-close {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .lb-title {
+    top: 0.6rem;
+    left: 0.6rem;
+  }
+}
