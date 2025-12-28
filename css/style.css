@@ -279,7 +279,7 @@ html, body {
   .lb-prev,
   .lb-next {
     top: auto;                 /* anulamos el 52% */
-    bottom: 5rem;            /* 👈 AQUÍ decides la altura */
+    bottom: 3rem;            /* 👈 AQUÍ decides la altura */
     transform: none;
   }
 
