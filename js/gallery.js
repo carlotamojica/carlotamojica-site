@@ -1,61 +1,62 @@
-const items = Array.from(document.querySelectorAll('.home-footer-track img, .home-footer-track video'));
-const lightbox = document.querySelector('.custom-lightbox');
-const content = document.querySelector('.lb-content');
-const prev = document.querySelector('.lb-prev');
-const next = document.querySelector('.lb-next');
-const closeBtn = document.querySelector('.lb-close');
+const items = Array.from(document.querySelectorAll('.gallery-item'));
+const lightbox = document.querySelector('.lightbox');
+const content = document.querySelector('.lightbox-content');
+const btnPrev = document.querySelector('.lb-prev');
+const btnNext = document.querySelector('.lb-next');
+const btnClose = document.querySelector('.lb-close');
 
 let currentIndex = 0;
 
-function openLightbox(index) {
-  currentIndex = index;
-  renderItem();
-  lightbox.hidden = false;
-}
-
-function closeLightbox() {
-  lightbox.hidden = true;
+function clearContent() {
   content.innerHTML = '';
 }
 
-function renderItem() {
-  content.innerHTML = '';
-  const item = items[currentIndex];
+function showItem(index) {
+  clearContent();
 
-  if (item.tagName === 'VIDEO') {
-    const video = document.createElement('video');
-    video.src = item.dataset.full || item.src;
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
-    content.appendChild(video);
+  const el = items[index];
+  let node;
+
+  if (el.tagName === 'VIDEO') {
+    node = document.createElement('video');
+    node.src = el.dataset.full || el.src;
+    node.autoplay = true;
+    node.loop = true;
+    node.muted = true;
+    node.playsInline = true;
+    node.controls = false;
   } else {
-    const img = document.createElement('img');
-    img.src = item.dataset.full || item.src;
-    content.appendChild(img);
+    node = document.createElement('img');
+    node.src = el.dataset.full || el.src;
   }
+
+  content.appendChild(node);
+  currentIndex = index;
 }
 
 items.forEach((item, index) => {
-  item.addEventListener('click', () => openLightbox(index));
+  item.addEventListener('click', () => {
+    lightbox.classList.add('active');
+    showItem(index);
+  });
 });
 
-prev.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + items.length) % items.length;
-  renderItem();
+btnPrev.addEventListener('click', () => {
+  showItem((currentIndex - 1 + items.length) % items.length);
 });
 
-next.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % items.length;
-  renderItem();
+btnNext.addEventListener('click', () => {
+  showItem((currentIndex + 1) % items.length);
 });
 
-closeBtn.addEventListener('click', closeLightbox);
+btnClose.addEventListener('click', () => {
+  lightbox.classList.remove('active');
+  clearContent();
+});
 
-document.addEventListener('keydown', (e) => {
-  if (lightbox.hidden) return;
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowRight') next.click();
-  if (e.key === 'ArrowLeft') prev.click();
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) {
+    lightbox.classList.remove('active');
+    clearContent();
+  }
 });

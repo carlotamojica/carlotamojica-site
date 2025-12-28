@@ -1,246 +1,165 @@
-/* ================================
-   RESET
-================================ */
+/* =========================
+   RESET BÁSICO
+========================= */
+
 * {
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-/* ================================
-   BASE
-================================ */
-body {
-  font-family: 'Times', 'Times New Roman', serif;
-  font-size: 13px;
-  line-height: 1.2;
-  color: #000;
-  background: #fff;
-  padding-bottom: 200px;
-}
+/* =========================
+   GALERÍA HOME
+========================= */
 
-a {
-  color: #000;
-  text-decoration: underline;
-}
-
-a:hover {
-  opacity: 0.7;
-}
-
-/* ================================
-   HEADER
-================================ */
-.site-header {
-  padding: 0.4rem;
-}
-
-.site-header h1 {
-  font-size: 13px;
-  font-weight: 400;
-  margin: 0;
-}
-
-/* ================================
-   CONTENT
-================================ */
-.site-content {
-  padding: 0.4rem;
-}
-
-.home-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 0.4rem;
-}
-
-.home-text {
-  grid-column: span 5;
-}
-
-.home-empty {
-  grid-column: span 7;
-}
-
-/* ================================
-   FIXED BOTTOM
-================================ */
-.site-bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  z-index: 20;
-}
-
-/* ================================
-   GALLERY
-================================ */
 .home-footer-gallery {
   width: 100%;
+  padding: 0 1rem;
 }
 
 .home-footer-track {
   display: grid;
-  grid-template-columns: repeat(22, 1fr);
-  gap: 0.4rem;
-  padding: 0.4rem;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
 }
 
 .home-footer-track img,
 .home-footer-track video {
   width: 100%;
   height: auto;
-  display: block;
   cursor: pointer;
-  filter: grayscale(100%);
 }
 
-.home-footer-track img:hover,
-.home-footer-track video:hover {
-  filter: none;
-}
+/* =========================
+   LIGHTBOX BASE
+========================= */
 
-/* ================================
-   FOOTER
-================================ */
-.site-footer {
-  padding: 0.4rem;
-  font-size: 13px;
-}
-
-/* ================================
-   LIGHTBOX
-================================ */
-.custom-lightbox {
+.lightbox {
   position: fixed;
   inset: 0;
   background: #000;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-}
-
-.custom-lightbox[hidden] {
   display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-/* Header */
-.lb-header {
-  padding: 0.4rem;
-  color: #fff;
-  font-size: 13px;
+.lightbox.active {
+  display: flex;
 }
 
-/* Content */
-.lb-content {
-  flex: 1;
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.lb-content img,
-.lb-content video {
-  max-width: 80vw;
-  max-height: 80vh;
-  object-fit: contain;
+.lightbox-content img,
+.lightbox-content video {
+  max-width: 100%;
+  max-height: 100%;
 }
 
-/* Controls */
+/* =========================
+   TEXTO "CARLOTA MOJICA"
+========================= */
+
+.lightbox-name {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  color: #e6e6e6;
+  font-size: 0.9rem;
+  z-index: 10001;
+  pointer-events: none;
+}
+
+/* =========================
+   CONTROLES DESKTOP
+========================= */
+
 .lb-prev,
 .lb-next,
 .lb-close {
-  position: absolute;
-  font-size: 13px;
-  color: #fff;
+  position: fixed;
+  color: #e6e6e6;
+  font-size: 0.85rem;
   cursor: pointer;
   user-select: none;
-}
-
-.lb-close {
-  top: 0.4rem;
-  right: 0.4rem;
+  -webkit-user-select: none;
+  z-index: 10001;
 }
 
 .lb-prev {
-  left: 2rem;
+  left: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .lb-next {
-  right: 2rem;
+  right: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* ================================
-   MOBILE FIXES (REAL)
-================================ */
+.lb-close {
+  top: 1rem;
+  right: 1.5rem;
+}
+
+/* =========================
+   DESACTIVAR SELECCIÓN
+========================= */
+
+.lb-prev,
+.lb-next,
+.lb-close {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
 @media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
 
-  .home-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .home-text,
-  .home-empty {
-    grid-column: span 1;
-  }
-
-  .home-footer-track {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  .lb-content img,
-  .lb-content video {
-    max-width: 90vw;
-    max-height: 70vh;
+  .lightbox-content {
+    max-width: 92vw;
+    max-height: 82vh;
   }
 
   .lb-prev,
   .lb-next {
     top: auto;
-    bottom: 2.5rem;
+    bottom: 5rem; /* ⬅️ AQUÍ subes/bajas botones */
     transform: none;
+    font-size: 0.8rem;
   }
 
   .lb-prev {
-    left: 1rem;
+    left: 1.25rem;
   }
 
   .lb-next {
-    right: 1rem;
+    right: 1.25rem;
   }
-}
 
-/* ================================
-   UX
-================================ */
-html, body {
-  cursor: crosshair;
-}
+  .lb-close {
+    top: 1rem;
+    right: 1.25rem;
+  }
 
-a,
-button,
-.home-footer-track img,
-.home-footer-track video,
-.lb-prev,
-.lb-next,
-.lb-close {
-  cursor: pointer;
-}
-
-.custom-lightbox,
-.custom-lightbox * {
-  user-select: none;
-  -webkit-user-select: none;
+  .lightbox-name {
+    top: 0.75rem;
+    left: 1.25rem;
+    font-size: 0.8rem;
+  }
 }
