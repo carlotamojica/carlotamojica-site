@@ -6,8 +6,7 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
 }
@@ -26,12 +25,6 @@ body {
 
   /* espacio real para galería + footer */
   padding-bottom: 190px;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-
-  cursor: crosshair;
 }
 
 a {
@@ -41,7 +34,6 @@ a {
 
 a:hover {
   opacity: 0.7;
-  cursor: pointer;
 }
 
 /* ================================
@@ -116,43 +108,44 @@ a:hover {
 }
 
 /* ================================
-   GALERÍA INFERIOR
+   GALERÍA INFERIOR (SOLUCIÓN FINAL)
 ================================ */
 
 .home-footer-gallery {
   width: 100%;
+  overflow: hidden;
 }
 
 .home-footer-track {
   display: grid;
-  grid-template-columns: repeat(20, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 110px; /* tamaño real de cada item */
   gap: 0.4rem;
   padding: 0.4rem;
 }
 
-@media (max-width: 768px) {
-  .home-footer-track {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-/* Imágenes y vídeos pequeños */
+/* imágenes y vídeos */
 .home-footer-track img,
 .home-footer-track video {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
   filter: grayscale(100%);
   cursor: pointer;
 }
 
+/* hover */
 .home-footer-track img:hover,
 .home-footer-track video:hover {
   filter: none;
 }
 
-/* Evitar controles de vídeo en miniaturas */
-.home-footer-track video {
-  pointer-events: auto;
+/* mobile */
+@media (max-width: 768px) {
+  .home-footer-track {
+    grid-auto-columns: 80px;
+  }
 }
 
 /* ================================
@@ -184,53 +177,15 @@ a:hover {
   display: none;
 }
 
-/* Marco fijo del contenido */
-.custom-lightbox .media-wrapper {
-  width: 80vw;
-  height: 80vh;
-  max-width: 80vw;
-  max-height: 80vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Imagen y vídeo grandes */
+/* imagen y vídeo en lightbox */
 .custom-lightbox img,
 .custom-lightbox video {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  max-width: 80vw;
+  max-height: 80vh;
   object-fit: contain;
 }
 
-/* ================================
-   LIGHTBOX — TÍTULO
-================================ */
-
-.lb-title {
-  position: fixed;
-  top: 0.4rem;
-  left: 0.4rem;
-  z-index: 10000;
-
-  font-family: 'Times', 'Times New Roman', serif;
-  font-size: 13px;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
-  font-weight: 400;
-
-  color: #ffffff;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* ================================
-   NAVEGACIÓN LIGHTBOX
-================================ */
-
+/* controles */
 .lb-prev,
 .lb-next,
 .lb-close {
@@ -260,12 +215,16 @@ a:hover {
 }
 
 /* ================================
-   CURSORES
+   CURSOR
 ================================ */
 
-/* Elementos clicables → manita */
+html,
+body {
+  cursor: crosshair;
+}
+
+a,
 button,
-.gallery-item,
 .home-footer-track img,
 .home-footer-track video,
 .lb-prev,
@@ -274,15 +233,9 @@ button,
   cursor: pointer;
 }
 
-/* ================================
-   SEGURIDAD VISUAL
-================================ */
-
-/* Evitar selección */
-.custom-lightbox,
-.custom-lightbox * {
-  user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+/* suavizado tipográfico */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
-

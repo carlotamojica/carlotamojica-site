@@ -1,89 +1,89 @@
-(function () {
-  const gallery = document.querySelector(".custom-gallery");
+document.addEventListener("DOMContentLoaded", () => {
+  const items = Array.from(document.querySelectorAll(".gallery-item"));
   const lightbox = document.querySelector(".custom-lightbox");
+  const lbClose = document.querySelector(".lb-close");
+  const lbNext = document.querySelector(".lb-next");
+  const lbPrev = document.querySelector(".lb-prev");
 
-  if (!gallery || !lightbox) return;
-
-  const prevBtn = lightbox.querySelector(".lb-prev");
-  const nextBtn = lightbox.querySelector(".lb-next");
-  const closeBtn = lightbox.querySelector(".lb-close");
-
-  const items = Array.from(gallery.querySelectorAll(".gallery-item"));
-  let index = 0;
+  let currentIndex = 0;
+  let currentMedia = null;
 
   function clearLightbox() {
-    lightbox.querySelectorAll(".media-wrapper").forEach(el => el.remove());
+    if (currentMedia) {
+      currentMedia.pause?.();
+      currentMedia.remove();
+      currentMedia = null;
+    }
   }
 
-  function render() {
+  function openLightbox(index) {
     clearLightbox();
+    currentIndex = index;
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "media-wrapper";
-    lightbox.appendChild(wrapper);
+    const item = items[currentIndex];
+    const isVideo = item.tagName.toLowerCase() === "video";
 
-    const item = items[index];
-    let media;
+    if (isVideo) {
+      const video = document.createElement("video");
+      video.src = item.dataset.full || item.src;
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.controls = false;
 
-    if (item.tagName === "VIDEO") {
-      media = document.createElement("video");
-      media.src = item.dataset.full || item.src;
-      media.muted = true;
-      media.loop = true;
-      media.autoplay = true;
-      media.playsInline = true;
-      media.preload = "auto";
+      currentMedia = video;
+      lightbox.appendChild(video);
     } else {
-      media = document.createElement("img");
-      media.src = item.src;
+      const img = document.createElement("img");
+      img.src = item.dataset.full || item.src;
+
+      currentMedia = img;
+      lightbox.appendChild(img);
     }
 
-    wrapper.appendChild(media);
-  }
-
-  function open(i) {
-    index = i;
     lightbox.hidden = false;
-    render();
   }
 
-  function close() {
-    lightbox.hidden = true;
+  function closeLightbox() {
     clearLightbox();
+    lightbox.hidden = true;
   }
 
-  items.forEach((item, i) => {
-    item.addEventListener("click", () => open(i));
+  function nextItem() {
+    const nextIndex = (currentIndex + 1) % items.length;
+    openLightbox(nextIndex);
+  }
+
+  function prevItem() {
+    const prevIndex =
+      (currentIndex - 1 + items.length) % items.length;
+    openLightbox(prevIndex);
+  }
+
+  // click en galería
+  items.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      openLightbox(index);
+    });
   });
 
-  nextBtn.onclick = e => {
-    e.stopPropagation();
-    index = (index + 1) % items.length;
-    render();
-  };
+  // controles
+  lbClose.addEventListener("click", closeLightbox);
+  lbNext.addEventListener("click", nextItem);
+  lbPrev.addEventListener("click", prevItem);
 
-  prevBtn.onclick = e => {
-    e.stopPropagation();
-    index = (index - 1 + items.length) % items.length;
-    render();
-  };
-
-  closeBtn.onclick = e => {
-    e.stopPropagation();
-    close();
-  };
-
-  document.addEventListener("keydown", e => {
+  // teclado
+  document.addEventListener("keydown", (e) => {
     if (lightbox.hidden) return;
 
-    if (e.key === "Escape") close();
-    if (e.key === "ArrowRight") {
-      index = (index + 1) % items.length;
-      render();
-    }
-    if (e.key === "ArrowLeft") {
-      index = (index - 1 + items.length) % items.length;
-      render();
-    }
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") nextItem();
+    if (e.key === "ArrowLeft") prevItem();
   });
-})();
+
+  // click fuera para cerrar
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+});
