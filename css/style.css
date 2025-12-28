@@ -22,16 +22,15 @@ a:visited {
 
 /* HEADER */
 .site-header {
-  position: fixed;
+  position: static;
   top: 0;
   left: 0;
   padding: 0.4rem;
-  z-index: 10;
 }
 
 /* TEXTO */
 .site-content {
-  padding: 2.2rem 0.4rem 0 0.4rem;
+  padding: 0.4rem 0.4rem 0 0.4rem;
   max-width: 45rem;
 }
 
@@ -83,13 +82,6 @@ a:visited {
   }
 }
 
-/* FOOTER */
-.site-footer {
-  position: fixed;
-  bottom: 0.4rem;
-  left: 0.4rem;
-}
-
 /* LIGHTBOX */
 .custom-lightbox {
   position: fixed;
@@ -127,7 +119,8 @@ a:visited {
   display: none;
 }
 
-.custom-lightbox img {
+.custom-lightbox img,
+.custom-lightbox video {
   display: block;
 
   max-width: calc(100vw - 4rem);
@@ -185,9 +178,9 @@ a:visited {
     background: #ffffff;
   }
 
-  /* Reservar espacio para que no pise el texto */
-  main {
-    padding-bottom: 8rem;
+  /* Reservar espacio REAL para galería + footer */
+  body {
+    padding-bottom: 10rem;
   }
 }
 
@@ -207,4 +200,107 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* =========================
+   PLACEHOLDER DE CARGA
+========================= */
+
+.gallery-item {
+  background: #e5e5e5;   /* gris suave */
+}
+
+/* imágenes */
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* vídeos */
+.gallery-item video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* evitar flashes */
+.gallery-item {
+  overflow: hidden;
+}
+
+/* FOOTER */
+.site-footer {
+  padding: 0.4rem;
+  font-size: 13px;
+}
+
+/* ESPACIO PARA GALERÍA FIJA (DESKTOP) */
+@media (min-width: 769px) {
+  .gallery-spacer {
+    height: 9rem; /* ajusta a la altura real de la galería */
+  }
+}
+
+@media (min-width: 769px) {
+
+  .site-footer {
+    position: fixed;
+    left: 0.4rem;
+    bottom: 0.4rem;
+    padding: 0;
+    z-index: 11;
+  }
+}
+
+/* En móvil no hace falta */
+@media (max-width: 768px) {
+  .site-footer {
+    position: static !important;
+    margin-top: 1.2rem;
+    padding: 0.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* LIGHTBOX */
+  .custom-lightbox {
+    padding: 1rem;
+  }
+
+  /* Imagen centrada */
+  .custom-lightbox img {
+    max-width: 97vw;
+    max-height: 70vh;
+  }
+
+  /* Botones más abajo */
+  .lb-prev,
+  .lb-next {
+    top: auto;                 /* anulamos el 52% */
+    bottom: 5rem;            /* 👈 AQUÍ decides la altura */
+    transform: none;
+  }
+
+  .lb-prev {
+    left: 0.4rem;              /* margen izquierdo */
+  }
+
+  .lb-next {
+    right: 0.4rem;             /* margen derecho */
+  }
+}
+
+.custom-lightbox {
+  touch-action: pan-x pan-y;
+}
+
+.custom-lightbox *,
+.lb-prev,
+.lb-next,
+.lb-close {
+  user-select: none;
+  -webkit-user-select: none; /* Safari / iOS */
+  -ms-user-select: none;     /* IE antiguo (por compatibilidad) */
 }

@@ -1,64 +1,78 @@
 (() => {
   const items = Array.from(document.querySelectorAll(".gallery-item"));
   const lightbox = document.querySelector(".custom-lightbox");
-  const img = lightbox.querySelector("img");
+  const content = lightbox.querySelector(".lb-content");
   const prev = lightbox.querySelector(".lb-prev");
   const next = lightbox.querySelector(".lb-next");
   const close = lightbox.querySelector(".lb-close");
 
   let index = 0;
 
-  function show() {
-    const src = items[index].dataset.full || items[index].src;
-    img.src = src;
+function render() {
+  content.innerHTML = "";
+  const item = items[index];
+
+  if (item.tagName === "VIDEO") {
+    const video = document.createElement("video");
+    video.src = item.dataset.full || item.src;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.controls = false;
+
+    // 👉 click en vídeo = siguiente
+    video.addEventListener("click", (e) => {
+      e.stopPropagation();
+      next.click();
+    });
+
+    content.appendChild(video);
+
+  } else {
+    const img = document.createElement("img");
+    img.src = item.src;
+
+    // 👉 click en imagen = siguiente
+    img.addEventListener("click", (e) => {
+      e.stopPropagation();
+      next.click();
+    });
+
+    content.appendChild(img);
+  }
+}
+
+  function open(i) {
+    index = i;
+    lightbox.hidden = false;
+    render();
   }
 
   items.forEach((el, i) => {
-    el.addEventListener("click", () => {
-      index = i;
-      lightbox.hidden = false;
-      show();
-    });
+    el.addEventListener("click", () => open(i));
   });
 
   next.onclick = () => {
     index = (index + 1) % items.length;
-    show();
+    render();
   };
 
   prev.onclick = () => {
     index = (index - 1 + items.length) % items.length;
-    show();
+    render();
   };
 
   close.onclick = () => {
     lightbox.hidden = true;
-    img.src = "";
+    content.innerHTML = "";
   };
 
   document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && !lightbox.hidden) {
-      close.click();
-    }
+    if (lightbox.hidden) return;
+    if (e.key === "Escape") close.click();
+    if (e.key === "ArrowRight") next.click();
+    if (e.key === "ArrowLeft") prev.click();
   });
+  
 })();
-
-document.addEventListener("keydown", (e) => {
-  const lightbox = document.querySelector(".custom-lightbox");
-  if (!lightbox || lightbox.hasAttribute("hidden")) return;
-
-  if (e.key === "ArrowRight") {
-    e.preventDefault();
-    document.querySelector(".lb-next")?.click();
-  }
-
-  if (e.key === "ArrowLeft") {
-    e.preventDefault();
-    document.querySelector(".lb-prev")?.click();
-  }
-
-  if (e.key === "Escape") {
-    e.preventDefault();
-    document.querySelector(".lb-close")?.click();
-  }
-});
