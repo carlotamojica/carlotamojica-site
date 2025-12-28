@@ -304,3 +304,13 @@ html, body {
   -webkit-user-select: none; /* Safari / iOS */
   -ms-user-select: none;     /* IE antiguo (por compatibilidad) */
 }
+
+/* =========================
+   FIX SAFARI – imágenes invisibles
+========================= */
+
+@supports (-webkit-touch-callout: none) {
+  .gallery-item {
+    mix-blend-mode: normal !important;
+  }
+}
