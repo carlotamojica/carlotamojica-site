@@ -178,7 +178,6 @@ a:visited {
     background: #ffffff;
   }
 
-  /* Reservar espacio REAL para galería + footer */
   body {
     padding-bottom: 10rem;
   }
@@ -206,7 +205,7 @@ html, body {
 ========================= */
 
 .gallery-item {
-  background: #e5e5e5;   /* gris suave */
+  background: #e5e5e5;
 }
 
 /* images */
@@ -237,7 +236,7 @@ html, body {
 /* GALLERY HEIGHT */
 @media (min-width: 769px) {
   .gallery-spacer {
-    height: 9rem; /* altura galería */
+    height: 9rem;
   }
 }
 
@@ -276,17 +275,17 @@ html, body {
   /* Navigation */
   .lb-prev,
   .lb-next {
-    top: auto;                 /* anulamos el 52% */
-    bottom: 3rem;            /* 👈 AQUÍ decides la altura */
+    top: auto;
+    bottom: 3rem;
     transform: none;
   }
 
   .lb-prev {
-    left: 0.4rem;              /* margen izquierdo */
+    left: 0.4rem;
   }
 
   .lb-next {
-    right: 0.4rem;             /* margen derecho */
+    right: 0.4rem;
   }
 }
 
@@ -299,8 +298,8 @@ html, body {
 .lb-next,
 .lb-close {
   user-select: none;
-  -webkit-user-select: none; /* Safari / iOS */
-  -ms-user-select: none;     /* IE antiguo (por compatibilidad) */
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 /* =========================
