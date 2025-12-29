@@ -54,7 +54,7 @@ a:visited {
 
 .custom-gallery {
   display: grid;
-  grid-template-columns: repeat(18, 1fr);
+  grid-template-columns: repeat(21, 1fr);
   gap: 0.4rem;
 }
 
@@ -311,3 +311,4 @@ html, body {
     mix-blend-mode: normal !important;
   }
 }
+

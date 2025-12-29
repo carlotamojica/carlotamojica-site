@@ -75,4 +75,35 @@ function render() {
     if (e.key === "ArrowLeft") prev.click();
   });
   
+const canvas = document.getElementById("draw");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+ctx.lineWidth = 1.5;
+ctx.strokeStyle = "#e00000";
+ctx.lineCap = "round";
+
+let drawing = false;
+
+canvas.addEventListener("mousedown", e => {
+  drawing = true;
+  ctx.beginPath();
+  ctx.moveTo(e.clientX, e.clientY);
+});
+
+canvas.addEventListener("mousemove", e => {
+  if (!drawing) return;
+  ctx.lineTo(e.clientX, e.clientY);
+  ctx.stroke();
+});
+
+canvas.addEventListener("mouseup", () => drawing = false);
+canvas.addEventListener("mouseleave", () => drawing = false);
+
 })();
