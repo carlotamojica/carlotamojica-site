@@ -8,10 +8,26 @@
 
   let index = 0;
 
+function handleMobileVideoTap(e, prev, next) {
+  // ❌ Desktop → no hacemos nada
+  if (window.innerWidth > 768) return;
+
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const half = rect.width / 2;
+
+  if (x > half) {
+    next.click();   // tap derecha
+  } else {
+    prev.click();   // tap izquierda
+  }
+}
+
 function render() {
   content.innerHTML = "";
   const item = items[index];
 
+  // ===== VIDEO =====
   if (item.tagName === "VIDEO") {
     const video = document.createElement("video");
     video.src = item.dataset.full || item.src;
@@ -21,26 +37,23 @@ function render() {
     video.playsInline = true;
     video.controls = false;
 
-    // clic video = next
+    // SOLO en móvil: tap izquierda / derecha
     video.addEventListener("click", (e) => {
       e.stopPropagation();
-      next.click();
+      handleMobileVideoTap(e, prev, next);
     });
 
     content.appendChild(video);
-
-  } else {
-    const img = document.createElement("img");
-    img.src = item.src;
-
-    // clic image = next
-    img.addEventListener("click", (e) => {
-      e.stopPropagation();
-      next.click();
-    });
-
-    content.appendChild(img);
+    return;
   }
+
+  // ===== IMAGEN =====
+  const img = document.createElement("img");
+  img.src = item.src;
+
+  // comportamiento normal (no tocamos imágenes)
+  content.appendChild(img);
+
 }
 
   function open(i) {

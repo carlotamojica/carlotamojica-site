@@ -175,12 +175,19 @@ a:visited {
     background: #ffffff;
   }
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+
   .custom-lightbox img,
   .custom-lightbox video {
     width: 100%;
     max-width: 100%;
     height: auto;
+  }
+
+  /* 🔴 CLAVE: solo para vídeo */
+  .custom-lightbox video {
+    object-fit: cover;
+    max-height: 70vh;
   }
 }
 
