@@ -322,3 +322,33 @@ html, body {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+a {
+  color: #000;
+  text-decoration: none;
+  position: relative;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover::after {
+    animation: underline-blink 0.8s ease-in-out infinite;
+  }
+}
+
+@keyframes underline-blink {
+  0%   { opacity: 1; }
+  35%  { opacity: 0; }
+  55%  { opacity: 0; }
+  100% { opacity: 1; }
+}
