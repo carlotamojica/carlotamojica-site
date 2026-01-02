@@ -281,17 +281,17 @@ html, body {
 }
 
 @media (max-width: 768px) {
-
-  /* LIGHTBOX */
   .custom-lightbox {
-    padding: 1rem;
+    --lb-margin: 0.4rem;
+    padding: var(--lb-margin);
   }
 
-  /* Center image */
-  .custom-lightbox img {
-    max-width: 97vw;
-    max-height: 70vh;
+  .custom-lightbox img,
+  .custom-lightbox video {
+    max-width: calc(100vw - (var(--lb-margin) * 2));
+    max-height: calc(100vh - (var(--lb-margin) * 2));
   }
+}
 
   /* Navigation */
   .lb-prev,
