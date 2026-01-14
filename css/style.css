@@ -433,19 +433,16 @@ a::after {
 
 @media (max-width: 768px) {
 
-  /* Un poco más de aire si quieres */
   .custom-lightbox {
     --lb-margin: 0.4rem;
   }
 
-  /* Imagen / vídeo siguen el margen */
   .custom-lightbox img,
   .custom-lightbox video {
     max-width: calc(100vw - (var(--lb-margin) * 2));
     max-height: calc(100vh - (var(--lb-margin) * 2));
   }
 
-  /* Botones alineados al margen */
   .lb-prev {
     left: var(--lb-margin);
     bottom: 3rem;
@@ -457,4 +454,9 @@ a::after {
     bottom: 3rem;
     top: auto;
   }
+}
+
+::selection {
+  background-color: #e0e0e0; 
+  color: #000000;            
 }
